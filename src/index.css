@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -8,9 +9,15 @@
   --color-blue-main: #5e60ce;
   --color-blue-light: #7678d5;
   --color-blue-dark: #1e1f62;
+
+  --font-poppins: "Poppins", sans-serif;
 }
 
 @layer base {
+  body {
+    @apply font-poppins;
+  }
+
   button,
   a {
     @apply cursor-pointer;
