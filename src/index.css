@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-2xs: 25rem;
+  --breakpoint-xs: 36.25rem;
+  --breakpoint-1_5xl: 84.375rem;
+
+  --color-blue-main: #5e60ce;
+  --color-blue-light: #7678d5;
+  --color-blue-dark: #1e1f62;
+}
+
+@layer base {
+  button,
+  a {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .tran-fast {
+    @apply duration-200 ease-in transition-all;
+  }
+}
+
+@utility thin-bar {
+  scrollbar-width: thin;
+}
+
+@utility no-bar {
+  scrollbar-width: none;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 1rem;
+
+  @variant sm {
+    padding-inline: 1rem;
+  }
+
+  @variant lg {
+    padding-inline: 1.5rem;
+  }
+
+  @variant xl {
+    padding-inline: 2.5rem;
+  }
+
+  @variant 1_5xl {
+    padding-inline: 3rem;
+  }
+
+  @variant 2xl {
+    padding-inline: 6.25rem;
+  }
+}
