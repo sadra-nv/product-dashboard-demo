@@ -1,13 +1,35 @@
 import { useDnd } from "../../../hooks/useDnD";
-import { useState } from "react";
-
 import ImagesPreview from "./ImagesPreview";
 import ImageDropBox from "./ImageDropBox";
+import { useState } from "react";
+import { useFormContext } from "react-hook-form";
+import ImageEditModal from "./ImageEditor/ImageEditModal";
 
 export default function ProductImagesSec() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const dropProps = useDnd("images");
+  const { watch, setValue } = useFormContext();
+
+  const selectedImages = watch("images");
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleImageDrop = () => {
+    setModalOpen(true);
+  };
+
+  const submitCroppedImage = (file: File) => {
+    const updatedFiles = [...selectedImages, file];
+
+    setValue("images", updatedFiles, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+  };
+
+  const dropProps = useDnd("images", handleImageDrop);
 
   return (
     <section className="pb-6 border-b border-neutral-200 mb-16">
@@ -15,7 +37,14 @@ export default function ProductImagesSec() {
         Product Images
       </h1>
 
-      <ImagesPreview selectedFiles={dropProps.selectedFiles} />
+      <ImageEditModal
+        submitCroppedImage={submitCroppedImage}
+        isOpen={modalOpen}
+        onClose={handleClose}
+        selectedImage={dropProps.selectedImage}
+      />
+
+      <ImagesPreview selectedFiles={selectedImages} />
 
       <ImageDropBox dropProps={dropProps} />
     </section>

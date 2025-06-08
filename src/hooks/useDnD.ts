@@ -3,24 +3,21 @@ import {
   type DragEvent,
   useRef,
   useState,
-  useCallback,
+  type RefObject,
 } from "react";
 import {
   useFormContext,
   type FieldError,
   type FieldErrorsImpl,
   type Merge,
-  type UseFormRegisterReturn,
 } from "react-hook-form";
 
 export interface UseDndReturn {
   isDragging: boolean;
   dropError?: FieldError | Merge<FieldError, FieldErrorsImpl> | undefined;
-  selectedFiles: File[] | [];
-  inputRef: (el: HTMLInputElement | null) => void;
-  inputProps: UseFormRegisterReturn & {
-    ref: (el: HTMLInputElement | null) => void;
-  };
+  selectedImage: File | null;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputRef: RefObject<HTMLInputElement | null>;
   handleDragEnter: (e: DragEvent<HTMLDivElement>) => void;
   handleDragLeave: (e: DragEvent<HTMLDivElement>) => void;
   handleDragOver: (e: DragEvent<HTMLDivElement>) => void;
@@ -31,25 +28,22 @@ export interface UseDndReturn {
 
 export const useDnd = (
   fieldName: string,
-  onSuccess?: (files: File[]) => void
+  onSuccess?: () => void
 ): UseDndReturn => {
-  const [isDragging, setIsDragging] = useState(false);
-
-  const dragCounter = useRef(0);
-
   const {
-    setValue,
     setError,
-    register,
-    watch,
     formState: { errors },
   } = useFormContext();
 
   const dropError = errors[fieldName];
-  const selectedFiles = watch("images");
+  const [isDragging, setIsDragging] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<null | File>(null);
+
+  const dragCounter = useRef(0);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // main function for submitting pictures, other event handlers call this
   const handleFiles = (files: File[]) => {
     if (!files[0]?.type.startsWith("image/")) {
       const errorMsg = "The file format is not supported";
@@ -57,27 +51,17 @@ export const useDnd = (
       return;
     }
 
-    const updatedFiles = [...selectedFiles, ...files];
-
-    setValue(fieldName, updatedFiles, {
-      shouldValidate: true,
-      shouldDirty: true,
-    });
-
-    onSuccess?.(updatedFiles);
+    setSelectedImage(files[0]);
+    onSuccess?.();
   };
 
-  const inputRegistration = register(fieldName, {
-    onChange: (e) => handleFiles(Array.from(e.target.files || [])),
-  });
-
-  const setInputRef = useCallback(
-    (el: HTMLInputElement | null) => {
-      inputRef.current = el;
-      inputRegistration.ref(el);
-    },
-    [inputRegistration]
-  );
+  // handles the onChange for the file input
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleFiles([file]);
+    }
+  };
 
   const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -118,12 +102,9 @@ export const useDnd = (
   return {
     dropError,
     isDragging,
-    selectedFiles,
-    inputRef: setInputRef,
-    inputProps: {
-      ...inputRegistration,
-      ref: setInputRef,
-    },
+    selectedImage,
+    inputRef,
+    handleInputChange,
     handleDragEnter,
     handleDragLeave,
     handleDragOver,

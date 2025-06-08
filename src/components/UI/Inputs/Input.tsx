@@ -39,7 +39,7 @@ export default function Input({
             "bg-transparent mt-3 focus:ring ring-purple-600 ",
             "focus:outline-0 w-full rounded-lg h-12 border-2 border-purple-700 px-2",
             {
-              "border-red-600 focus:ring-red-600": error,
+              "border-red-600 focus:ring-red-600": error && dirty,
             }
           )}
           {...props}

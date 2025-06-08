@@ -4,22 +4,26 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import type { UseDndReturn } from "../../../hooks/useDnD";
 import { Button } from "../../UI/Buttons/Button";
+import { useFormContext } from "react-hook-form";
 
 export default function ImageDropBox({
   dropProps,
 }: {
   dropProps: UseDndReturn;
 }) {
+  const { register } = useFormContext();
+
   const {
     handleDragEnter,
     handleDragLeave,
     handleDragOver,
     handleDrop,
     handlePaste,
-    inputProps,
-    isDragging,
+    handleInputChange,
     openFileDialog,
+    isDragging,
     dropError,
+    inputRef,
   } = dropProps;
 
   return (
@@ -35,7 +39,9 @@ export default function ImageDropBox({
         >
           <input
             type="file"
-            {...inputProps}
+            {...register("images")}
+            ref={inputRef}
+            onChange={handleInputChange}
             accept="image/*"
             className="hidden"
             multiple={false}

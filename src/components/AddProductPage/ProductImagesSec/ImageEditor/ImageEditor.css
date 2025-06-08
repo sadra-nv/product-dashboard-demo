@@ -1,0 +1,46 @@
+.cropper-modal {
+  opacity: 0.5 !important;
+}
+
+.cropper-line,
+.cropper-point {
+  background-color: var(--color-red-600) !important;
+}
+.cropper-line {
+  opacity: 0.2 !important;
+}
+.cropper-point {
+  opacity: 0.9 !important;
+  border-radius: 0.0625rem;
+}
+.cropper-view-box {
+  outline: 0.125rem solid var(--color-purple-700) !important;
+  outline-color: color-mix(
+    in srgb,
+    var(--color-purple-700) 75%,
+    transparent
+  ) !important;
+}
+.cropper-bg {
+  background: transparent !important;
+}
+#rotation {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+#rotation::-moz-range-thumb {
+  height: 1rem;
+  width: 1rem;
+  background: var(--color-purple-700);
+  border: none;
+  border-radius: 50%;
+}
+#rotation::-webkit-slider-thumb {
+  height: 1rem;
+  width: 1rem;
+  background: var(--color-purple-700);
+  accent-color: var(--color-purple-700);
+  border: none;
+  border-radius: 50%;
+}
