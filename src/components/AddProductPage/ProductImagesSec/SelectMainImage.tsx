@@ -20,7 +20,7 @@ export default function SelectMainImage({
   if (selectedFiles.length === 0) return;
 
   return (
-    <div className="max-w-80">
+    <div className="w-full sm:max-w-80">
       <Select
         {...register("main_image")}
         dirty={dirtyFields.main_image}

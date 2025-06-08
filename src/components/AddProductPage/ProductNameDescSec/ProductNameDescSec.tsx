@@ -15,7 +15,7 @@ export default function ProductNameDescSec() {
         Basic Information
       </h1>
 
-      <div className="flex gap-6 items-start md:flex-row flex-col  justify-between">
+      <div className="flex gap-6 items-start  flex-col  justify-between">
         <Input
           dirty={dirtyFields.name}
           error={errors.name}

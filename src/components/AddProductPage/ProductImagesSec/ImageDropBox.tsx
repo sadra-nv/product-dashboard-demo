@@ -26,18 +26,19 @@ export default function ImageDropBox({
   } = dropProps;
 
   return (
-    <div>
-      <p className="text-sm mb-3 font-medium text-neutral-200">
+    <div className="w-full sm:w-fit">
+      <p className="text-sm mb-3 w-full text-start font-medium text-neutral-200">
         Choose Product Images
       </p>
-      <div className=" ">
+      <div className="sm:mx-0 mx-auto lg:w-3xl">
         <div
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
           onPaste={handlePaste}
-          className="bg-neutral-600 border-dashed border-2 h-40 w-70 border-purple-600 p-4 pt-5 rounded-lg"
+          className="bg-neutral-600 border-dashed border-2 h-40 w-70 lg:h-80 lg:w-lg border-purple-600 p-4 pt-5 rounded-lg
+          lg:flex justify-center items-center"
         >
           <input
             type="file"

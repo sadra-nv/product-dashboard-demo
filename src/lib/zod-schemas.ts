@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PRODUCT_COLORS, PRODUCT_SIZES } from "./constants";
 
 const genericStringSchema = (name: string) => {
   return z
@@ -14,6 +15,15 @@ const imageSchema = z
     message: "The selected file must be an image",
   });
 
+export const ProductSizeFormSchema = z.object({
+  size: z.enum(PRODUCT_SIZES),
+  color: z.enum(PRODUCT_COLORS),
+  quantity: genericStringSchema("quantity").regex(/^\d+$/, {
+    message: "Quantity must be a number",
+  }),
+});
+export type ProductSizeFormType = z.infer<typeof ProductSizeFormSchema>;
+
 export const AddProductFormSchema = z.object({
   name: genericStringSchema("name"),
   description: genericStringSchema("description"),
@@ -21,5 +31,9 @@ export const AddProductFormSchema = z.object({
   images: z.array(imageSchema).min(1, {
     message: "At least one image is required",
   }),
+  etries: z.array(ProductSizeFormSchema).min(1, {
+    message: "At least one product entry is required",
+  }),
+  totall_quantity: genericStringSchema("totall quantity"),
 });
 export type AddProductFormType = z.infer<typeof AddProductFormSchema>;

@@ -1,18 +1,25 @@
 import { SpinnerIcon } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "../../../lib/utils";
 import { Button } from "./Button";
+import type { ButtonHTMLAttributes } from "react";
+
+type BtnProps = {
+  className?: string;
+  isSubmitting: boolean;
+  isValid: boolean;
+  title?: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function SubmitFormBtn({
   className,
   isSubmitting,
   isValid,
-}: {
-  className?: string;
-  isSubmitting: boolean;
-  isValid: boolean;
-}) {
+  title,
+  ...props
+}: BtnProps) {
   return (
     <Button
+      {...props}
       disabled={isSubmitting}
       type="submit"
       className={cn(
@@ -23,7 +30,9 @@ export default function SubmitFormBtn({
         className
       )}
     >
-      {!isSubmitting && <span className="inline-block mx-auto ">Submit</span>}
+      {!isSubmitting && (
+        <span className="inline-block mx-auto ">{title || "Submit"}</span>
+      )}
       {isSubmitting && (
         <span className="inline-block mx-auto ">
           <SpinnerIcon className="animate-spin w-6 min-w-6" />
