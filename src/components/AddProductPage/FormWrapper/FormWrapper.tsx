@@ -6,13 +6,13 @@ import {
   type AddProductFormType,
 } from "../../../lib/zod-schemas";
 import SubmitFormBtn from "../../UI/Buttons/SubmitFormBtn";
+import ProductImagesSec from "../ProductImagesSec/ProductImagesSec";
 
 export default function FormWrapper() {
   const methods = useForm<AddProductFormType>({
     defaultValues: {
       name: "",
       description: "",
-      main_image: "",
       images: [],
     },
     resolver: zodResolver(AddProductFormSchema),
@@ -30,6 +30,7 @@ export default function FormWrapper() {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(submitHandler)} className="pt-16 container">
         <ProductNameDescSec />
+        <ProductImagesSec />
 
         <SubmitFormBtn isValid={isValid} isSubmitting={isSubmitting} />
       </form>

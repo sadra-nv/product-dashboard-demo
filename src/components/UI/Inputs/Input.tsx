@@ -30,9 +30,18 @@ export default function Input({
   return (
     <div className={cn("w-full relative", className)}>
       <div className="w-full relative">
-        <label className="text-sm font-medium text-neutral-200">{tag}</label>
+        <label htmlFor={tag} className="text-sm font-medium text-neutral-200">
+          {tag}
+        </label>
         <input
-          className="bg-transparent mt-3 focus:ring ring-purple-600 focus:outline-0 w-full rounded-lg h-12 border-2 border-purple-700 px-2"
+          id={tag}
+          className={cn(
+            "bg-transparent mt-3 focus:ring ring-purple-600 ",
+            "focus:outline-0 w-full rounded-lg h-12 border-2 border-purple-700 px-2",
+            {
+              "border-red-600 focus:ring-red-600": error,
+            }
+          )}
           {...props}
           type={passwordVisiblity ? "text" : props.type}
         />

@@ -20,11 +20,21 @@ export default function TextArea({
   return (
     <div className={cn("w-full relative", className)}>
       <div className="w-full relative">
-        <label className="text-sm mb-3 font-medium text-neutral-200">
+        <label
+          htmlFor={tag}
+          className="text-sm mb-3 font-medium text-neutral-200"
+        >
           {tag}
         </label>
         <textarea
-          className="bg-transparent mt-3 min-h-80 focus:ring ring-purple-600 focus:outline-0 w-full rounded-lg  border-2 border-purple-700 px-2 py-4"
+          id={tag}
+          className={cn(
+            "bg-transparent mt-3 min-h-80 focus:ring ring-purple-600 ",
+            "focus:outline-0 w-full rounded-lg  border-2 border-purple-700 px-2 py-4",
+            {
+              "border-red-600 focus:ring-red-600": error,
+            }
+          )}
           {...props}
         />
       </div>
