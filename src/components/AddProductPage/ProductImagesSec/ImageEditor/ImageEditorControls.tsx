@@ -6,7 +6,7 @@ function ImageEditorControls({
   onCancel,
   isSubmitting,
 }: {
-  handleCrop: () => Promise<void>;
+  handleCrop: () => void;
   onCancel: () => void;
   isSubmitting: boolean;
 }) {

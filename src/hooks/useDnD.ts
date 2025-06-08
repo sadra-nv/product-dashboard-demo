@@ -10,13 +10,16 @@ import {
   type FieldError,
   type FieldErrorsImpl,
   type Merge,
+  type UseFormRegisterReturn,
 } from "react-hook-form";
 
 export interface UseDndReturn {
+  isDirty: boolean;
   isDragging: boolean;
   dropError?: FieldError | Merge<FieldError, FieldErrorsImpl> | undefined;
   selectedImage: File | null;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  inputRegister: UseFormRegisterReturn;
   inputRef: RefObject<HTMLInputElement | null>;
   handleDragEnter: (e: DragEvent<HTMLDivElement>) => void;
   handleDragLeave: (e: DragEvent<HTMLDivElement>) => void;
@@ -32,10 +35,15 @@ export const useDnd = (
 ): UseDndReturn => {
   const {
     setError,
-    formState: { errors },
+    register,
+    formState: { errors, dirtyFields },
   } = useFormContext();
 
   const dropError = errors[fieldName];
+  const isDirty = dirtyFields[fieldName];
+
+  const inputRegister = { ...register(fieldName) };
+
   const [isDragging, setIsDragging] = useState(false);
   const [selectedImage, setSelectedImage] = useState<null | File>(null);
 
@@ -104,6 +112,8 @@ export const useDnd = (
     isDragging,
     selectedImage,
     inputRef,
+    isDirty,
+    inputRegister,
     handleInputChange,
     handleDragEnter,
     handleDragLeave,

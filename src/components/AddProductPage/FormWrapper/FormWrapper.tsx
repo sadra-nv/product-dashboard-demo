@@ -28,7 +28,7 @@ export default function FormWrapper() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(submitHandler)} className="pt-16 container">
+      <form onSubmit={handleSubmit(submitHandler)} className="py-16 container">
         <ProductNameDescSec />
         <ProductImagesSec />
 

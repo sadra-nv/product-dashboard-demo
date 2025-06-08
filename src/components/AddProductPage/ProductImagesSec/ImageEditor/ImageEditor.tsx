@@ -42,7 +42,7 @@ function ImageEditor({
     closeHandler();
   };
 
-  const handleCrop = async () => {
+  const handleCrop = () => {
     if (isSubmitting) return;
 
     const cropper = cropperRef.current?.cropper;
