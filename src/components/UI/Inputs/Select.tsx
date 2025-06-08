@@ -1,18 +1,24 @@
-import { type TextareaHTMLAttributes } from "react";
+import { type SelectHTMLAttributes } from "react";
 import { cn } from "../../../lib/utils";
 import { SealWarningIcon } from "@phosphor-icons/react/dist/ssr";
 import type { RHFFieldProps } from "../../../lib/types";
 
-type TextAreaProps = RHFFieldProps &
-  TextareaHTMLAttributes<HTMLTextAreaElement>;
+export type SelectOption = {
+  label: string;
+  value: string | number;
+};
 
-export default function TextArea({
+type SelectProps = { options: SelectOption[] } & RHFFieldProps &
+  SelectHTMLAttributes<HTMLSelectElement>;
+
+export default function Select({
   tag,
   dirty,
   error,
   className,
+  options,
   ...props
-}: TextAreaProps) {
+}: SelectProps) {
   return (
     <div className={cn("w-full relative", className)}>
       <div className="w-full relative">
@@ -22,17 +28,28 @@ export default function TextArea({
         >
           {tag}
         </label>
-        <textarea
+        <select
+          defaultValue={1}
           id={tag}
           className={cn(
-            "bg-transparent mt-3 min-h-80 focus:ring ring-purple-600 ",
-            "focus:outline-0 w-full rounded-lg  border-2 border-purple-700 px-2 py-4",
+            "bg-transparent mt-3 h-12 text-purple-600 focus:ring ring-purple-600 ",
+            "focus:outline-0 w-full rounded-lg  border-2 border-purple-700 px-2 ",
             {
               "border-red-600 focus:ring-red-600": error && dirty,
             }
           )}
           {...props}
-        />
+        >
+          {options.map((opt) => (
+            <option
+              className="max-w-full h-12 truncate"
+              key={opt.value}
+              value={opt.value}
+            >
+              {opt.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <p

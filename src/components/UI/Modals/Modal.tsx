@@ -33,7 +33,7 @@ export const Modal: React.FC<ModalProps> = ({
 
   const modalContent = (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      <div className="bg-neutral-950 border-2 border-neutral-300 rounded-2xl shadow-xl max-w-4xl min-h-80 w-full p-6 relative z-10">
+      <div className="bg-neutral-950 border-2 border-neutral-300 rounded-2xl shadow-xl max-w-4xl min-h-80 w-11/12 p-6 relative z-10">
         {showCloseButton && (
           <button
             onClick={onClose}

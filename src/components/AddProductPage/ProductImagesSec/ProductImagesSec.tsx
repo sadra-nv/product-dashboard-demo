@@ -4,6 +4,7 @@ import ImageDropBox from "./ImageDropBox";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import ImageEditModal from "./ImageEditor/ImageEditModal";
+import SelectMainImage from "./SelectMainImage";
 
 export default function ProductImagesSec() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -44,9 +45,12 @@ export default function ProductImagesSec() {
         selectedImage={dropProps.selectedImage}
       />
 
-      <ImagesPreview selectedFiles={selectedImages} />
+      <div className="flex gap-6 md:flex-row flex-col justify-between items-start">
+        <ImageDropBox dropProps={dropProps} />
 
-      <ImageDropBox dropProps={dropProps} />
+        <SelectMainImage selectedFiles={selectedImages} />
+      </div>
+      <ImagesPreview selectedFiles={selectedImages} />
     </section>
   );
 }

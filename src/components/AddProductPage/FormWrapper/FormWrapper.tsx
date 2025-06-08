@@ -24,7 +24,9 @@ export default function FormWrapper() {
     formState: { isSubmitting, isValid },
   } = methods;
 
-  const submitHandler = () => {};
+  const submitHandler = (formData: AddProductFormType) => {
+    console.log(formData);
+  };
 
   return (
     <FormProvider {...methods}>

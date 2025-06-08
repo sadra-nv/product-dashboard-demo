@@ -4,7 +4,7 @@ const genericStringSchema = (name: string) => {
   return z
     .string()
     .trim()
-    .min(2, { message: `${name} should at least contain 2 characters` })
+    .min(1, { message: `${name} should at least contain 1 characters` })
     .max(150, { message: `${name} can not exceed 150 characters` });
 };
 
@@ -17,7 +17,7 @@ const imageSchema = z
 export const AddProductFormSchema = z.object({
   name: genericStringSchema("name"),
   description: genericStringSchema("description"),
-  main_image: imageSchema,
+  main_image: genericStringSchema("main image"),
   images: z.array(imageSchema).min(1, {
     message: "At least one image is required",
   }),

@@ -1,18 +1,13 @@
 import { useState, type InputHTMLAttributes } from "react";
-import type { FieldError } from "react-hook-form";
 import { cn } from "../../../lib/utils";
 import {
   EyeIcon,
   EyeSlashIcon,
   SealWarningIcon,
 } from "@phosphor-icons/react/dist/ssr";
+import type { RHFFieldProps } from "../../../lib/types";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  tag: string;
-  dirty: boolean | undefined;
-  error: FieldError | undefined;
-  className?: string;
-}
+type InputProps = RHFFieldProps & InputHTMLAttributes<HTMLInputElement>;
 
 export default function Input({
   tag,
