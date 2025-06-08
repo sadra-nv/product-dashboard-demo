@@ -6,16 +6,12 @@
   --breakpoint-xs: 36.25rem;
   --breakpoint-1_5xl: 84.375rem;
 
-  --color-blue-main: #5e60ce;
-  --color-blue-light: #7678d5;
-  --color-blue-dark: #1e1f62;
-
-  --font-poppins: "Poppins", sans-serif;
+  --font-poppins: "Poppins";
 }
 
 @layer base {
   body {
-    @apply font-poppins;
+    @apply font-poppins text-sm text-neutral-200;
   }
 
   button,
