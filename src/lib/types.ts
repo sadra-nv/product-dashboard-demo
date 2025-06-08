@@ -1,5 +1,6 @@
 import type { FieldError } from "react-hook-form";
 import type { PRODUCT_COLORS, PRODUCT_SIZES } from "./constants";
+import type { AddProductFormType } from "./zod-schemas";
 
 export interface RHFFieldProps {
   tag: string;
@@ -13,3 +14,5 @@ export type ProductEntry = {
   color: (typeof PRODUCT_COLORS)[number];
   quantity: string;
 };
+
+export type Product = AddProductFormType & { id: IDBValidKey };
