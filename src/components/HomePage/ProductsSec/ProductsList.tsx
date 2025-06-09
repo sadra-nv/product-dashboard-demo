@@ -18,6 +18,15 @@ export default function ProductsList({
       </div>
     );
   }
+  if (allProducts.length === 0) {
+    return (
+      <div className="w-full h-80 flex justify-center items-center">
+        <h2 className="text-center text-lg text-neutral-50 font-bold">
+          No products were found, Create some by click on the button above
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-16">
