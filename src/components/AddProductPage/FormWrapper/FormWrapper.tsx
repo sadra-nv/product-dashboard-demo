@@ -8,11 +8,14 @@ import {
 import SubmitFormBtn from "../../UI/Buttons/SubmitFormBtn";
 import ProductImagesSec from "../ProductImagesSec/ProductImagesSec";
 import ProductSizeSec from "../ProductSizeSec/ProductSizeSec";
-import { CheckCircleIcon } from "@phosphor-icons/react/dist/ssr";
 import {
   getAllProductsFromIndexedDB,
   saveProductToIndexedDB,
 } from "../../../lib/indexDB";
+import { Link } from "react-router";
+import { buttonVariants } from "../../UI/Buttons/button-variants";
+import { cn } from "../../../lib/utils";
+import FormErrors from "./FormErrors";
 
 export default function FormWrapper() {
   const methods = useForm<AddProductFormType>({
@@ -57,26 +60,23 @@ export default function FormWrapper() {
         <ProductImagesSec />
         <ProductSizeSec />
 
-        <SubmitFormBtn isValid={isValid} isSubmitting={isSubmitting} />
+        <div className="flex flex-wrap gap-6">
+          <SubmitFormBtn isValid={isValid} isSubmitting={isSubmitting} />
+          <Link
+            to="/"
+            className={cn(
+              "w-40",
+              buttonVariants({
+                size: "md",
+                variant: "purple-outline",
+              })
+            )}
+          >
+            Go Back
+          </Link>
+        </div>
 
-        {isSubmitSuccessful && !errors.root && (
-          <p className="text-green-600 text-base font-medium mt-6">
-            <CheckCircleIcon
-              weight="fill"
-              className="mr-1.5 inline-block size-6"
-            />
-            Your product has been successfully added
-          </p>
-        )}
-        {!isSubmitSuccessful && errors.root && (
-          <p className="text-red-600 text-base font-medium mt-6">
-            <CheckCircleIcon
-              weight="fill"
-              className="mr-1.5 inline-block size-6"
-            />
-            {errors.root.message}
-          </p>
-        )}
+        <FormErrors isSubmitSuccessful={isSubmitSuccessful} errors={errors} />
       </form>
     </FormProvider>
   );
