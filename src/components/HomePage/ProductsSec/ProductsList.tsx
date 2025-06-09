@@ -22,7 +22,7 @@ export default function ProductsList({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-16">
       {allProducts.map((item) => (
-        <ProductItem product={item} key={item.id.toString()} />
+        <ProductItem product={item} key={item.id.toString() + item.name} />
       ))}
     </div>
   );

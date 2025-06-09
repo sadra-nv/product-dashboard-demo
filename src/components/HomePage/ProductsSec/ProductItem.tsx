@@ -3,6 +3,7 @@ import { useImagePreviews } from "../../../hooks/useImagePreviews";
 import type { Product } from "../../../lib/types";
 import { buttonVariants } from "../../UI/Buttons/button-variants";
 import { cn } from "../../../lib/utils";
+import { Fragment } from "react/jsx-runtime";
 
 export default function ProductItem({ product }: { product: Product }) {
   const { description, etries, images, id, main_image, name, totall_quantity } =
@@ -30,12 +31,11 @@ export default function ProductItem({ product }: { product: Product }) {
         <div className="flex gap-2 overflow-x-auto flex-wrap">
           {imagesSrc.map((img, i) => {
             return (
-              <>
+              <Fragment key={i}>
                 {i === Number(main_image) ? (
                   ""
                 ) : (
                   <img
-                    key={i}
                     src={img}
                     width={64}
                     height={64}
@@ -43,7 +43,7 @@ export default function ProductItem({ product }: { product: Product }) {
                     className="w-16 h-16 object-cover rounded"
                   />
                 )}
-              </>
+              </Fragment>
             );
           })}
         </div>
